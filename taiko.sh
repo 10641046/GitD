@@ -8,16 +8,16 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 # 读取加载身份码信息
-id="B5D79314-1D51-424F-B68D-8F76045E7516"
+"id="B5D79314-1D51-424F-B68D-8F76045E7516"
 
 # 让用户输入想要创建的容器数量
-container_count="1"
+"container_count="1"
 
 # 让用户输入想要分配的空间大小
-storage_gb="6"
+"storage_gb="6"
 
 # 让用户输入存储路径（可选）
-custom_storage_path="titan_storage_1"
+"custom_storage_path="titan_storage_1"
 
 apt update
 

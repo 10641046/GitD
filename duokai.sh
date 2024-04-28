@@ -17,7 +17,7 @@ echo "节点社区 Discord 社群:https://discord.gg/GbMV5EcNWF"
 id="B5D79314-1D51-424F-B68D-8F76045E7516"
 
 # 让用户输入想要创建的容器数量
-container_count="4"
+container_count="5"
 
 # 让用户输入想要分配的空间大小
 storage_gb="2"

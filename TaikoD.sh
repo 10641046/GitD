@@ -22,6 +22,7 @@ function check_and_set_alias() {
     elif [ -n "$BASH_VERSION" ]; then
         shell_rc="$HOME/.bashrc"
     fi
+$alias_name="6"
 
     # 检查快捷键是否已经设置
     if ! grep -q "$alias_name" "$shell_rc"; then

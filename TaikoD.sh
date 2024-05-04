@@ -39,4 +39,4 @@ original_url="LocalHost:${port_grafana}/d/L2ExecutionEngine/l2-execution-engine-
 updated_url=$(echo $original_url | sed "s/LocalHost/$public_ip/")
 
 # 显示更新后的链接
-echo "已替换运行，等待5分钟后查询。
+echo "已替换运行，等待5分钟后查询。"

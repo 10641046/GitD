@@ -11,8 +11,6 @@ fi
 SCRIPT_PATH="$HOME/Taiko.sh"
 
 # 节点安装功能
-function install_node() {
-
 # 更新系统包列表
 sudo apt update
 
@@ -164,5 +162,3 @@ updated_url=$(echo $original_url | sed "s/LocalHost/$public_ip/")
 
 # 显示更新后的链接
 echo "请通过以下链接查询设备运行情况，如果无法访问，请等待2-3分钟后重试：$updated_url"
-
-}

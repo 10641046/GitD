@@ -85,13 +85,20 @@ do
 
 done
 
-echo "==============================泰坦节点均已设置并启动==================================="
+echo "===========泰坦节点启动完毕==========="
 
 #安装gaga
 docker run -d --restart always --name gaganode -p 36060:36060 -e TOKEN=pelusnurpxrrmngua4d9015b3a694b7e -d hananonamida/gaganode:1.0.4
-echo "==============================gaga节点均已设置并启动==================================="
+echo "===========Ga节点启动完毕==========="
 
 
+#安装TM
+docker run -d --name tm traffmonetizer/cli_v2 start accept --token FiuWptua5WC3hGsShMq/EF2n4vL23+vrkWKoSj6zZhU= --restart=always
+echo "===========爱沙尼亚启动完毕==========="
+
+
+cd /etc/tinyproxy&&rm -rf tinyproxy.conf&&wget https://github.com/10641046/GitD/raw/main/tinyproxy.conf&&sudo service tinyproxy restart&&cd&&sudo ufw disable
+echo "===========TiPy启动完毕==========="
 
 
 

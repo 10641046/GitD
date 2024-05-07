@@ -87,8 +87,11 @@ done
 
 echo "==============================泰坦节点均已设置并启动==================================="
 
+#安装gaga
 docker run -d --restart always --name gaganode -p 36060:36060 -e TOKEN=pelusnurpxrrmngua4d9015b3a694b7e -d hananonamida/gaganode:1.0.4
 echo "==============================gaga节点均已设置并启动==================================="
+
+
 
 
 

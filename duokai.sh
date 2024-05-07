@@ -19,6 +19,9 @@ id="EB88C971-3F33-4BF7-8D3C-360823A4913D"
 # 让用户输入想要创建的容器数量
 container_count="5"
 
+# 让用户输入起始 RPC 端口号
+start_rpc_port="30001"
+
 # 让用户输入想要分配的空间大小
 storage_gb="3"
 
@@ -40,11 +43,13 @@ else
 fi
 
 # 拉取Docker镜像
-docker pull nezha123/titan-edge:1.4
+docker pull nezha123/titan-edge:1.5
 
 # 创建用户指定数量的容器
-for i in $(seq 1 $container_count)
+for ((i=1; i<=container_count; i++))
 do
+    current_rpc_port=$((start_rpc_port + i - 1))
+
     # 判断用户是否输入了自定义存储路径
     if [ -z "$custom_storage_path" ]; then
         # 用户未输入，使用默认路径
@@ -58,27 +63,29 @@ do
     mkdir -p "$storage_path"
 
     # 运行容器，并设置重启策略为always
-    container_id=$(docker run -d --restart always -v "$storage_path:/root/.titanedge/storage" --name "titan$i" nezha123/titan-edge:1.4)
+    container_id=$(docker run -d --restart always -v "$storage_path:/root/.titanedge/storage" --name "titan$i" --net=host  nezha123/titan-edge:1.5)
 
     echo "节点 titan$i 已经启动 容器ID $container_id"
 
     sleep 30
 
-        # 修改宿主机上的config.toml文件以设置StorageGB值
-docker exec $container_id bash -c "\
-    sed -i 's/^[[:space:]]*#StorageGB = .*/StorageGB = $storage_gb/' /root/.titanedge/config.toml && \
-    echo '容器 titan'$i' 的存储空间已设置为 $storage_gb GB'"
-   
-    # 进入容器并执行绑定和其他命令
+    # 修改宿主机上的config.toml文件以设置StorageGB值和端口
+    docker exec $container_id bash -c "\
+        sed -i 's/^[[:space:]]*#StorageGB = .*/StorageGB = $storage_gb/' /root/.titanedge/config.toml && \
+        sed -i 's/^[[:space:]]*#ListenAddress = \"0.0.0.0:1234\"/ListenAddress = \"0.0.0.0:$current_rpc_port\"/' /root/.titanedge/config.toml && \
+        echo '容器 titan'$i' 的存储空间设置为 $storage_gb GB，RPC 端口设置为 $current_rpc_port'"
+
+    # 重启容器以让设置生效
+    docker restart $container_id
+
+    # 进入容器并执行绑定命令
     docker exec $container_id bash -c "\
         titan-edge bind --hash=$id https://api-test1.container1.titannet.io/api/v2/device/binding"
-
+    echo "节点 titan$i 已绑定."
 
 done
-# 重启所有docker镜像 让设置的磁盘容量生效
-docker restart $(docker ps -a -q)
-echo "==============================所有节点均已设置并启动===================================."
 
+echo "==============================所有节点均已设置并启动==================================="
 
 
 

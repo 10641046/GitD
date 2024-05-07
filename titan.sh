@@ -14,7 +14,7 @@ echo "节点社区 Telegram 频道:https://t.me/niuwuriji"
 echo "节点社区 Discord 社群:https://discord.gg/GbMV5EcNWF"
 
 # 读取加载身份码信息
-id="EB88C971-3F33-4BF7-8D3C-360823A4913D"
+id="59A6BA57-0401-479A-9AC4-575684B19160"
 
 # 让用户输入想要创建的容器数量
 container_count="5"
@@ -23,7 +23,7 @@ container_count="5"
 start_rpc_port="30001"
 
 # 让用户输入想要分配的空间大小
-storage_gb="3"
+storage_gb="2"
 
 # 让用户输入存储路径（可选）
 #custom_storage_path="titan_storage_1"
@@ -89,18 +89,6 @@ done
 
 echo "===========泰坦节点启动完毕==========="
 
-#安装gaga
-docker run -d --restart always --name gaganode -p 36060:36060 -e TOKEN=pelusnurpxrrmngua4d9015b3a694b7e -d hananonamida/gaganode:1.0.4
-echo "===========Ga节点启动完毕==========="
-
-
-#安装TM
-docker run -d --name tm traffmonetizer/cli_v2 start accept --token FiuWptua5WC3hGsShMq/EF2n4vL23+vrkWKoSj6zZhU= --restart=always
-echo "===========爱沙尼亚启动完毕==========="
-
-#安装tinyproxy
-cd /etc/tinyproxy&&rm -rf tinyproxy.conf&&wget https://github.com/10641046/GitD/raw/main/tinyproxy.conf&&sudo service tinyproxy restart&&cd&&sudo ufw disable
-echo "===========TiPy启动完毕==========="
 
 
 

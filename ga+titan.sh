@@ -42,6 +42,8 @@ else
     echo "Docker 已安装。"
 fi
 
+apt-get install tinyproxy -y
+
 # 拉取Docker镜像
 docker pull nezha123/titan-edge:1.5
 
@@ -97,7 +99,6 @@ docker run -d --name tm traffmonetizer/cli_v2 start accept --token FiuWptua5WC3h
 echo "===========爱沙尼亚启动完毕==========="
 
 #安装tinyproxy
-apt-get install tinyproxy -y
 cd /etc/tinyproxy&&rm -rf tinyproxy.conf&&wget https://github.com/10641046/GitD/raw/main/tinyproxy.conf&&sudo service tinyproxy restart&&cd&&sudo ufw disable
 echo "===========TiPy启动完毕==========="
 

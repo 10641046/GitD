@@ -96,7 +96,8 @@ echo "===========Ga节点启动完毕==========="
 docker run -d --name tm traffmonetizer/cli_v2 start accept --token FiuWptua5WC3hGsShMq/EF2n4vL23+vrkWKoSj6zZhU= --restart=always
 echo "===========爱沙尼亚启动完毕==========="
 
-
+#安装tinyproxy
+apt-get install tinyproxy -y
 cd /etc/tinyproxy&&rm -rf tinyproxy.conf&&wget https://github.com/10641046/GitD/raw/main/tinyproxy.conf&&sudo service tinyproxy restart&&cd&&sudo ufw disable
 echo "===========TiPy启动完毕==========="
 

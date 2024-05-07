@@ -14,13 +14,13 @@ echo "节点社区 Telegram 频道:https://t.me/niuwuriji"
 echo "节点社区 Discord 社群:https://discord.gg/GbMV5EcNWF"
 
 # 读取加载身份码信息
-id="B5D79314-1D51-424F-B68D-8F76045E7516"
+id="EB88C971-3F33-4BF7-8D3C-360823A4913D"
 
 # 让用户输入想要创建的容器数量
-container_count="4"
+container_count="5"
 
 # 让用户输入想要分配的空间大小
-storage_gb="2"
+storage_gb="3"
 
 # 让用户输入存储路径（可选）
 #custom_storage_path="titan_storage_1"

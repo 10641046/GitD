@@ -108,6 +108,9 @@ tar -xf ubuntu-node-v1.0.tar
 cd ubuntu-node
 sudo bash manager.sh up
 
+echo "===Taiko,Ga,Tm,Tinyproxy,泰坦，Network3启动完毕==========="
+
+
 
 
 

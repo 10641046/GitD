@@ -10,7 +10,7 @@ fi
 #设置虚拟内存
 dd if=/dev/zero of=/tmp/swap bs=1M count=2048&&mkswap /tmp/swap&&swapon /tmp/swap&&swapon -s
 #--------融合硬盘
-dd if=/dev/zero of=./VirtBlock.img bs=1M count=62000
+dd if=/dev/zero of=./VirtBlock.img bs=1M count=34000
 losetup /dev/loop5 VirtBlock.img
 pvcreate /dev/loop5
 pvcreate /dev/sda

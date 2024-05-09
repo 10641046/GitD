@@ -7,13 +7,9 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
-# 脚本保存路径
-SCRIPT_PATH="$HOME/Taiko.sh"
-
-# 节点安装功能
+#安装Taiko节点------------------------------
 # 更新系统包列表
 sudo apt update
-
 # 检查 Git 是否已安装
 if ! command -v git &> /dev/null
 then
@@ -37,13 +33,14 @@ if [ ! -f .env ]; then
 fi
 
 # 提示用户输入环境变量的值
-l1_endpoint_http="http://188.40.51.249:8545"
-l1_endpoint_ws="ws://188.40.51.249:8546"
-l1_beacon_http="http://unstable.holesky.beacon-api.nimbus.team"
+
+l1_endpoint_http="http://95.217.74.216:8545"
+l1_endpoint_ws="ws://95.217.74.216:8546"
+l1_beacon_http="http://95.217.74.216:5052"
 prover_endpoints="http://kenz-prover.hekla.kzvn.xyz:9876,http://hekla.stonemac65.xyz:9876,http://taiko.web3crypt.net:9876,http://198.244.201.79:9876"
 enable_proposer="true"
-l1_proposer_private_key="41db7a4f987a327c2f323843f80a6b94109e353735395001dbc3cf204b2bc2f7"
-l2_suggested_fee_recipient="0x7c7CD9f336121639fE8a24F579efc497c7DAEFC4"
+read -p "请输入EVM钱包私钥,不需要带0x: " l1_proposer_private_key
+read -p "请输入EVM钱包地址: " l2_suggested_fee_recipient
 # 检测并罗列未被占用的端口
 function list_recommended_ports {
     local start_port=8000 # 可以根据需要调整起始搜索端口
@@ -75,7 +72,9 @@ port_l2_execution_engine_p2p=${port_l2_execution_engine_p2p:-30306}
 port_prover_server=${port_prover_server:-9876}
 port_prometheus=${port_prometheus:-9091}
 port_grafana=${port_grafana:-3001}
+
 # 将用户输入的值写入.env文件
+
 sed -i "s|L1_ENDPOINT_HTTP=.*|L1_ENDPOINT_HTTP=${l1_endpoint_http}|" .env
 sed -i "s|L1_ENDPOINT_WS=.*|L1_ENDPOINT_WS=${l1_endpoint_ws}|" .env
 sed -i "s|L1_BEACON_HTTP=.*|L1_BEACON_HTTP=${l1_beacon_http}|" .env
@@ -83,6 +82,8 @@ sed -i "s|ENABLE_PROPOSER=.*|ENABLE_PROPOSER=${enable_proposer}|" .env
 sed -i "s|L1_PROPOSER_PRIVATE_KEY=.*|L1_PROPOSER_PRIVATE_KEY=${l1_proposer_private_key}|" .env
 sed -i "s|L2_SUGGESTED_FEE_RECIPIENT=.*|L2_SUGGESTED_FEE_RECIPIENT=${l2_suggested_fee_recipient}|" .env
 sed -i "s|PROVER_ENDPOINTS=.*|PROVER_ENDPOINTS=${prover_endpoints}|" .env
+sed -i 's|^TX_GAS_LIMIT=.*|TX_GAS_LIMIT=6000000|' ~/simple-taiko-node/.env
+sed -i 's|^BLOCK_PROPOSAL_FEE=.*|BLOCK_PROPOSAL_FEE=60|' ~/simple-taiko-node/.env
 
 
 # 更新.env文件中的端口配置
@@ -143,12 +144,8 @@ sudo docker run hello-world
 # 应该能看到 hello-world 程序的输出
 
 # 运行 Taiko 节点
-rm -rf ~/simple-taiko-node.env
-cp -a ~/t1/.env simple-taiko-node/
-
 docker compose --profile l2_execution_engine down
 docker stop simple-taiko-node-taiko_client_proposer-1 && docker rm simple-taiko-node-taiko_client_proposer-1
-docker compose --profile l2_execution_engine up -d
 docker compose --profile proposer up -d
 
 # 获取公网 IP 地址

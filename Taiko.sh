@@ -36,11 +36,15 @@ fi
 
 l1_endpoint_http="http://95.217.74.216:8545"
 l1_endpoint_ws="ws://95.217.74.216:8546"
-l1_beacon_http="http://95.217.74.216:5052"
+l1_beacon_http="http://unstable.holesky.beacon-api.nimbus.team"
 prover_endpoints="http://kenz-prover.hekla.kzvn.xyz:9876,http://hekla.stonemac65.xyz:9876,http://taiko.web3crypt.net:9876,http://198.244.201.79:9876"
 enable_proposer="true"
 read -p "请输入EVM钱包私钥,不需要带0x: " l1_proposer_private_key
 read -p "请输入EVM钱包地址: " l2_suggested_fee_recipient
+TX_GAS_LIMIT="9000000"
+BLOCK_PROPOSAL_FEE="60"
+
+
 # 检测并罗列未被占用的端口
 function list_recommended_ports {
     local start_port=8000 # 可以根据需要调整起始搜索端口
@@ -82,8 +86,9 @@ sed -i "s|ENABLE_PROPOSER=.*|ENABLE_PROPOSER=${enable_proposer}|" .env
 sed -i "s|L1_PROPOSER_PRIVATE_KEY=.*|L1_PROPOSER_PRIVATE_KEY=${l1_proposer_private_key}|" .env
 sed -i "s|L2_SUGGESTED_FEE_RECIPIENT=.*|L2_SUGGESTED_FEE_RECIPIENT=${l2_suggested_fee_recipient}|" .env
 sed -i "s|PROVER_ENDPOINTS=.*|PROVER_ENDPOINTS=${prover_endpoints}|" .env
-sed -i 's|^TX_GAS_LIMIT=.*|TX_GAS_LIMIT=6000000|' ~/simple-taiko-node/.env
-sed -i 's|^BLOCK_PROPOSAL_FEE=.*|BLOCK_PROPOSAL_FEE=60|' ~/simple-taiko-node/.env
+# 修改Gas
+sed -i "s|TX_GAS_LIMIT=.*|TX_GAS_LIMIT=${TX_GAS_LIMIT}|" .env
+sed -i "s|BLOCK_PROPOSAL_FEE=.*|BLOCK_PROPOSAL_FEE=${BLOCK_PROPOSAL_FEE}|" .env
 
 
 # 更新.env文件中的端口配置

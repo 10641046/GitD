@@ -14,16 +14,16 @@ echo "节点社区 Telegram 频道:https://t.me/niuwuriji"
 echo "节点社区 Discord 社群:https://discord.gg/GbMV5EcNWF"
 
 # 读取加载身份码信息
-id="EB88C971-3F33-4BF7-8D3C-360823A4913D"
+id="59A6BA57-0401-479A-9AC4-575684B19160"
 
 # 让用户输入想要创建的容器数量
-container_count="1"
+container_count="5"
 
 # 让用户输入起始 RPC 端口号
 start_rpc_port="30001"
 
 # 让用户输入想要分配的空间大小
-storage_gb="50"
+storage_gb="2"
 
 # 让用户输入存储路径（可选）
 #custom_storage_path="titan_storage_1"

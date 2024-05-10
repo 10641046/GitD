@@ -14,12 +14,12 @@ fi
 #sed -i 's|^PROVER_ENDPOINTS=.*|PROVER_ENDPOINTS=http://kenz-prover.hekla.kzvn.xyz:9876,http://hekla.stonemac65.xyz:9876,http://taiko.web3crypt.net:9876,http://198.244.201.79:9876|' ~/simple-taiko-node/.env
 
 #修改 GAS
-sed -i 's|^TX_GAS_LIMIT=.*|TX_GAS_LIMIT=9000000|' ~/simple-taiko-node/.env
-sed -i 's|^BLOCK_PROPOSAL_FEE=.*|BLOCK_PROPOSAL_FEE=60|' ~/simple-taiko-node/.env
+#sed -i 's|^TX_GAS_LIMIT=.*|TX_GAS_LIMIT=9000000|' ~/simple-taiko-node/.env
+#sed -i 's|^BLOCK_PROPOSAL_FEE=.*|BLOCK_PROPOSAL_FEE=60|' ~/simple-taiko-node/.env
 
 
 #备份.env
-rm -rf t1&&mkdir t1&&cp -a ~/simple-taiko-node/.env /root/t1/
+#rm -rf t1&&mkdir t1&&cp -a ~/simple-taiko-node/.env /root/t1/
 
 #停止节点
 cd simple-taiko-node

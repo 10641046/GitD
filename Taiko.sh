@@ -34,8 +34,8 @@ fi
 
 # 提示用户输入环境变量的值
 
-l1_endpoint_http="http://95.217.74.216:8545"
-l1_endpoint_ws="ws://95.217.74.216:8546"
+l1_endpoint_http="http://138.201.221.84:8545"
+l1_endpoint_ws="ws://138.201.221.84:8546"
 l1_beacon_http="http://unstable.holesky.beacon-api.nimbus.team"
 prover_endpoints="http://kenz-prover.hekla.kzvn.xyz:9876,http://hekla.stonemac65.xyz:9876,http://taiko.web3crypt.net:9876,http://198.244.201.79:9876"
 enable_proposer="true"

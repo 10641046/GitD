@@ -19,7 +19,7 @@ fi
 
 #修改 GAS
 #sed -i 's|^TX_GAS_LIMIT=.*|TX_GAS_LIMIT=9000000|' ~/simple-taiko-node/.env
-sed -i 's|^BLOCK_PROPOSAL_FEE=.*|BLOCK_PROPOSAL_FEE=270|' ~/simple-taiko-node/.env
+sed -i 's|^BLOCK_PROPOSAL_FEE=.*|BLOCK_PROPOSAL_FEE=240|' ~/simple-taiko-node/.env
 
 
 #备份.env

@@ -23,7 +23,7 @@ container_count="1"
 start_rpc_port="30001"
 
 # 让用户输入想要分配的空间大小
-storage_gb="2"
+storage_gb="50"
 
 # 让用户输入存储路径（可选）
 #custom_storage_path="titan_storage_1"
@@ -90,25 +90,25 @@ done
 echo "===========泰坦节点启动完毕==========="
 
 #安装gaga
-docker run -d --restart always --name gaganode -p 36060:36060 -e TOKEN=pelusnurpxrrmngua4d9015b3a694b7e -d hananonamida/gaganode:1.0.4
-echo "===========Ga节点启动完毕==========="
+#docker run -d --restart always --name gaganode -p 36060:36060 -e TOKEN=pelusnurpxrrmngua4d9015b3a694b7e -d hananonamida/gaganode:1.0.4
+#echo "===========Ga节点启动完毕==========="
 
 
 #安装TM
-docker run -d --name tm traffmonetizer/cli_v2 start accept --token FiuWptua5WC3hGsShMq/EF2n4vL23+vrkWKoSj6zZhU= --restart=always
-echo "===========爱沙尼亚启动完毕==========="
+#docker run -d --name tm traffmonetizer/cli_v2 start accept --token FiuWptua5WC3hGsShMq/EF2n4vL23+vrkWKoSj6zZhU= --restart=always
+#echo "===========爱沙尼亚启动完毕==========="
 
 #安装tinyproxy
-cd /etc/tinyproxy&&rm -rf tinyproxy.conf&&wget https://github.com/10641046/GitD/raw/main/tinyproxy.conf&&sudo service tinyproxy restart&&cd&&sudo ufw disable
-echo "===========TiPy启动完毕==========="
+#cd /etc/tinyproxy&&rm -rf tinyproxy.conf&&wget https://github.com/10641046/GitD/raw/main/tinyproxy.conf&&sudo service tinyproxy restart&&cd&&sudo ufw disable
+#echo "===========TiPy启动完毕==========="
 
 #network3
-wget https://network3.io/ubuntu-node-v1.0.tar
-tar -xf ubuntu-node-v1.0.tar
-cd ubuntu-node
-sudo bash manager.sh up
+#wget https://network3.io/ubuntu-node-v1.0.tar
+#tar -xf ubuntu-node-v1.0.tar
+#cd ubuntu-node
+#sudo bash manager.sh up
 
-echo "===========全部启动完毕==========="
+#echo "===========全部启动完毕==========="
 
 
 

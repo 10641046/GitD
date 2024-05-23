@@ -97,7 +97,7 @@ echo "===========Gaga节点启动完毕==========="
 
 
 #安装TM
-ocker run -d --name tm traffmonetizer/cli_v2 start accept --token FiuWptua5WC3hGsShMq/EF2n4vL23+vrkWKoSj6zZhU= --restart=always
+docker run -d --name tm traffmonetizer/cli_v2 start accept --token FiuWptua5WC3hGsShMq/EF2n4vL23+vrkWKoSj6zZhU= --restart=always
 echo "===========爱沙尼亚启动完毕==========="
 
 #安装tinyproxy

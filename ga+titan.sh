@@ -25,7 +25,7 @@ container_count="1"
 start_rpc_port="30001"
 
 # 让用户输入想要分配的空间大小
-storage_gb="12"
+storage_gb="8"
 
 # 让用户输入存储路径（可选）
 #custom_storage_path="titan_storage_1"

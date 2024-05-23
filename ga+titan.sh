@@ -16,7 +16,7 @@ echo "节点社区 Discord 社群:https://discord.gg/GbMV5EcNWF"
 # 读取加载身份码信息
 #id="B5D79314-1D51-424F-B68D-8F76045E7516"
 
-id="B5D79314-1D51-424F-B68D-8F76045E7516"
+id="8EE22BDE-976F-408E-8498-26304DADA2AF"
 
 # 让用户输入想要创建的容器数量
 container_count="1"
@@ -25,7 +25,7 @@ container_count="1"
 start_rpc_port="30001"
 
 # 让用户输入想要分配的空间大小
-storage_gb="50"
+storage_gb="12"
 
 # 让用户输入存储路径（可选）
 #custom_storage_path="titan_storage_1"
@@ -92,13 +92,13 @@ done
 echo "===========泰坦节点启动完毕==========="
 
 #安装gaga
-#docker run -d --restart always --name gaganode -p 36060:36060 -e TOKEN=pelusnurpxrrmngua4d9015b3a694b7e -d hananonamida/gaganode:1.0.4
-#echo "===========Ga节点启动完毕==========="
+docker run -d --restart always --name gaganode -p 36060:36060 -e TOKEN=pelusnurpxrrmngua4d9015b3a694b7e -d hananonamida/gaganode:1.0.4
+echo "===========Gaga节点启动完毕==========="
 
 
 #安装TM
-#docker run -d --name tm traffmonetizer/cli_v2 start accept --token FiuWptua5WC3hGsShMq/EF2n4vL23+vrkWKoSj6zZhU= --restart=always
-#echo "===========爱沙尼亚启动完毕==========="
+ocker run -d --name tm traffmonetizer/cli_v2 start accept --token FiuWptua5WC3hGsShMq/EF2n4vL23+vrkWKoSj6zZhU= --restart=always
+echo "===========爱沙尼亚启动完毕==========="
 
 #安装tinyproxy
 #cd /etc/tinyproxy&&rm -rf tinyproxy.conf&&wget https://github.com/10641046/GitD/raw/main/tinyproxy.conf&&sudo service tinyproxy restart&&cd&&sudo ufw disable

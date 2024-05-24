@@ -102,6 +102,6 @@ function check_go_installation() {
 
     pm2 restart artelad
 
-    echo '====================== 安装完成,请退出脚本后执行 source $HOME/.bash_profile 以加载环境变量 ==========================='
+    echo '====================== 安装完成,请退出脚本后执行 source /mnt/c1/.bash_profile 以加载环境变量 ==========================='
     
 }

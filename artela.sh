@@ -104,4 +104,3 @@ function check_go_installation() {
 
     echo '====================== 安装完成,请退出脚本后执行 source /mnt/c1/.bash_profile 以加载环境变量 ==========================='
     
-}

@@ -7,6 +7,6 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
-sudo apt update
+sudo apt update -y
 apt  install docker.io -y
 docker run -d --restart always --name dante -p 7890:1080 -e PROXY_USER=roota1 -e PROXY_PASSWORD=roota2 cpfd/dante

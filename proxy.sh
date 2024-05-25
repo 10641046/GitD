@@ -7,25 +7,32 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
-#修改 beacon rpc
-#sed -i 's|^L1_BEACON_HTTP=.*|L1_BEACON_HTTP=http://unstable.holesky.beacon-api.nimbus.team|' ~/simple-taiko-node/.env
+sudo apt update
 
-#修改 prover rpc
-#sed -i 's|^PROVER_ENDPOINTS=.*|PROVER_ENDPOINTS=http://kenz-prover.hekla.kzvn.xyz:9876,http://hekla.stonemac65.xyz:9876,http://taiko.web3crypt.net:9876,http://198.244.201.79:9876|' ~/simple-taiko-node/.env
+# 检查 Docker 是否已安装
+if ! command -v docker &> /dev/null
+then
+    # 如果 Docker 未安装，则进行安装
+    echo "未检测到 Docker，正在安装..."
+    sudo apt-get install ca-certificates curl gnupg lsb-release
 
-#修改 GAS
-sed -i 's|^TX_GAS_LIMIT=.*|TX_GAS_LIMIT=9000000|' ~/simple-taiko-node/.env
-sed -i 's|^BLOCK_PROPOSAL_FEE=.*|BLOCK_PROPOSAL_FEE=60|' ~/simple-taiko-node/.env
+    # 添加 Docker 官方 GPG 密钥
+    sudo mkdir -p /etc/apt/keyrings
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
+    # 设置 Docker 仓库
+    echo \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-#备份.env
-rm -rf t1&&mkdir t1&&cp -a ~/simple-taiko-node/.env /root/t1/
+    # 授权 Docker 文件
+    sudo chmod a+r /etc/apt/keyrings/docker.gpg
+    sudo apt-get update
 
-#停止节点
-cd simple-taiko-node
-docker compose  --profile l2_execution_engine down
-docker stop simple-taiko-node-taiko_client_proposer-1 && docker rm simple-taiko-node-taiko_client_proposer-1&&cd
+    # 安装 Docker 最新版本
+    sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
+else
+    echo "Docker 已安装。"
+fi
 
-#运行节点
-cd simple-taiko-node&&docker compose --profile l2_execution_engine up -d&&docker compose --profile proposer up -d
-cd
+docker run -d --restart always --name dante -p 7890:1080 -e PROXY_USER=roota1 -e PROXY_PASSWORD=roota2 cpfd/dante

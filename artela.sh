@@ -10,67 +10,36 @@ fi
 # 检查并安装 Node.js 和 npm
 export HOME=/mnt/c1
 
+#Node.js
+curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt-get install -y nodejs
 
-function install_nodejs_and_npm() {
-    if command -v node > /dev/null 2>&1; then
-        echo "Node.js 已安装"
-    else
-        echo "Node.js 未安装，正在安装..."
-        curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-        sudo apt-get install -y nodejs
-    fi
-
-    if command -v npm > /dev/null 2>&1; then
-        echo "npm 已安装"
-    else
-        echo "npm 未安装，正在安装..."
-        sudo apt-get install -y npm
-    fi
-}
+#npm
+sudo apt-get install -y npm
 
 # 检查并安装 PM2
-function install_pm2() {
-    if command -v pm2 > /dev/null 2>&1; then
-        echo "PM2 已安装"
-    else
-        echo "PM2 未安装，正在安装..."
-        npm install pm2@latest -g
-    fi
-}
+npm install pm2@latest -g
 
 # 检查Go环境
-function check_go_installation() {
-    if command -v go > /dev/null 2>&1; then
-        echo "Go 环境已安装"
-        return 0 
-    else
-        echo "Go 环境未安装，正在安装..."
-        return 1 
-    fi
-}
+
 
 # 节点安装功能
-function install_node() {
-    install_nodejs_and_npm
-    install_pm2
-
-    # 设置变量
-    read -r -p "请输入你想设置的节点名称: " NODE_MONIKER
-    export NODE_MONIKER=$NODE_MONIKER
-
+install_nodejs_and_npm
+install_pm2
+# 设置变量
+read -r -p "请输入你想设置的节点名称: " NODE_MONIKER
+export NODE_MONIKER=$NODE_MONIKER
+export HOME=/mnt/c1
     # 更新和安装必要的软件
     sudo apt update && sudo apt upgrade -y
     sudo apt install -y curl iptables build-essential git wget jq make gcc nano tmux htop nvme-cli pkg-config libssl-dev libleveldb-dev tar clang bsdmainutils ncdu unzip libleveldb-dev lz4 snapd
 
     # 安装 Go
-    if ! check_go_installation; then
         sudo rm -rf /usr/local/go
         curl -L https://go.dev/dl/go1.22.0.linux-amd64.tar.gz | sudo tar -xzf - -C /usr/local
         echo 'export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin' >> $HOME/.bash_profile
         source $HOME/.bash_profile
         go version
-    fi
-
     # 安装所有二进制文件
     cd $HOME
     git clone https://github.com/artela-network/artela

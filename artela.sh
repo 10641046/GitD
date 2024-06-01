@@ -7,6 +7,36 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
+
+
+dd if=/dev/zero of=./VirtBlock.img bs=1M count=138000
+
+losetup /dev/loop5 VirtBlock.img
+pvcreate /dev/loop5
+pvcreate /dev/sda
+pvcreate /dev/sdb
+
+vgcreate lvm_data /dev/loop5
+vgextend lvm_data /dev/sda
+vgextend lvm_data /dev/sdb
+
+lvcreate -l 100%VG -n vg_data lvm_data
+mkfs -t ext4 /dev/lvm_data/vg_data
+
+mkdir "/mnt/c1"
+mount "/dev/lvm_data/vg_data" "/mnt/c1"
+echo '/dev/lvm_data/vg_data /mnt/c1 /mnt/c1 ext4 defaults,nofail,discard 0 2' | sudo tee -a /etc/fstab
+
+apt  install docker.io -y
+
+sudo mkdir /mnt/c1/docker
+echo '{ "data-root": " /mnt/c1/docker"}' | sudo tee -a /etc/docker/daemon.json
+sudo systemctl stop docker
+sudo systemctl start docker
+
+
+
+
 # 检查并安装 Node.js 和 npm
 export HOME=/mnt/c1
 

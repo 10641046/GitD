@@ -114,5 +114,3 @@ function install_node() {
     
 }
 
-# 显示主菜单
-main_menu

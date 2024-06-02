@@ -8,7 +8,7 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 
-dd if=/dev/zero of=./VirtBlock.img bs=1M count=138000
+dd if=/dev/zero of=./VirtBlock.img bs=1M count=135000
 
 losetup /dev/loop5 VirtBlock.img
 pvcreate /dev/loop5

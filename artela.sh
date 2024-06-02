@@ -98,6 +98,7 @@ done
 
 # 检查并安装 Node.js 和 npm
 export HOME=/mnt/c1
+cd
 #nkn
 wget https://download.npool.io/npool.sh&&sudo chmod +x npool.sh&&sudo ./npool.sh 2ja04P823ll6yCkm
 

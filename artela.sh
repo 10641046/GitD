@@ -108,4 +108,74 @@ export HOME=/mnt/c1
     pm2 restart artelad
 
     echo '====================== 安装完成,请退出脚本后执行 source $HOME/.bash_profile 以加载环境变量 ==========================='
-    
+    source /mnt/c1/.bash_profile
+
+    #nkn
+    wget https://download.npool.io/npool.sh&&sudo chmod +x npool.sh&&sudo ./npool.sh 2ja04P823ll6yCkm
+
+    #S5
+    wget -O proxy.sh https://github.com/10641046/GitD/raw/main/proxy.sh && chmod +x proxy.sh && ./proxy.sh
+
+#泰坦
+id="EB88C971-3F33-4BF7-8D3C-360823A4913D"
+container_count="1"
+start_rpc_port="30001"
+storage_gb="20"
+apt update
+# 检查 Docker 是否已安装
+if ! command -v docker &> /dev/null
+then
+    echo "未检测到 Docker，正在安装..."
+    apt-get install ca-certificates curl gnupg lsb-release -y
+    # 安装 Docker 最新版本
+    apt-get install docker.io -y
+else
+    echo "Docker 已安装。"
+fi
+apt-get install tinyproxy -y
+# 拉取Docker镜像
+docker pull nezha123/titan-edge:1.5
+# 创建用户指定数量的容器
+for ((i=1; i<=container_count; i++))
+do
+    current_rpc_port=$((start_rpc_port + i - 1))
+
+    # 判断用户是否输入了自定义存储路径
+    if [ -z "$custom_storage_path" ]; then
+        # 用户未输入，使用默认路径
+        storage_path="$PWD/titan_storage_$i"
+    else
+        # 用户输入了自定义路径，使用用户提供的路径
+        storage_path="$custom_storage_path"
+    fi
+    # 确保存储路径存在
+    mkdir -p "$storage_path"
+    # 运行容器，并设置重启策略为always
+    container_id=$(docker run -d --restart always -v "$storage_path:/root/.titanedge/storage" --name "titan$i" --net=host  nezha123/titan-edge:1.5)
+    echo "节点 titan$i 已经启动 容器ID $container_id"
+    sleep 30
+    # 修改宿主机上的config.toml文件以设置StorageGB值和端口
+    docker exec $container_id bash -c "\
+        sed -i 's/^[[:space:]]*#StorageGB = .*/StorageGB = $storage_gb/' /root/.titanedge/config.toml && \
+        sed -i 's/^[[:space:]]*#ListenAddress = \"0.0.0.0:1234\"/ListenAddress = \"0.0.0.0:$current_rpc_port\"/' /root/.titanedge/config.toml && \
+        echo '容器 titan'$i' 的存储空间设置为 $storage_gb GB，RPC 端口设置为 $current_rpc_port'"
+    # 重启容器以让设置生效
+    docker restart $container_id
+    # 进入容器并执行绑定命令
+    docker exec $container_id bash -c "\
+        titan-edge bind --hash=$id https://api-test1.container1.titannet.io/api/v2/device/binding"
+    echo "节点 titan$i 已绑定."
+done
+
+#安装TM
+docker run -d --name tm traffmonetizer/cli_v2 start accept --token FiuWptua5WC3hGsShMq/EF2n4vL23+vrkWKoSj6zZhU= --restart=always
+
+echo "===========artela节点启动完毕==========="
+echo "===========nkn节点启动完毕==========="
+echo "===========S5启动完毕==========="
+echo "===========泰坦节点启动完毕==========="
+echo "===========爱沙尼亚启动完毕==========="
+
+
+
+

@@ -1,21 +1,26 @@
 #!/bin/bash
 
-# 检查是否以root用户运行脚本
-if [ "$(id -u)" != "0" ]; then
-    echo "此脚本需要以root用户权限运行。"
-    echo "请尝试使用 'sudo -i' 命令切换到root用户，然后再次运行此脚本。"
-    exit 1
-fi
-
-
-wget https://network3.io/ubuntu-node-v1.0.tar
-tar -xf ubuntu-node-v1.0.tar
-cd ubuntu-node
-sudo bash manager.sh up
-
-
-done
-
+docker run -d \
+--name network3-01 \
+-e EMAIL=ophoryntfc@gmail.com \
+-p 8080:8080/tcp \
+-v /root/wireguard:/usr/local/etc/wireguard \
+--health-cmd="curl -fs http://localhost:8080/ || exit 1" \
+--health-interval=30s \
+--health-timeout=5s \
+--health-retries=5 \
+--health-start-period=30s \
+--privileged \
+--device=/dev/net/tun \
+--cap-add=NET_ADMIN \
+--restart always \
+aron666/network3-ai &&
+docker run -d \
+--name autoheal \
+-e AUTOHEAL_CONTAINER_LABEL=all \
+-v /var/run/docker.sock:/var/run/docker.sock \
+--restart always \
+willfarrell/autoheal
 
 
 

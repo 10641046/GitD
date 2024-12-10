@@ -14,7 +14,8 @@ snap install rustup --classic
 sudo apt install -y protobuf-compiler
 curl https://cli.nexus.xyz | sh
 
-    echo '================ 安装完成,请退出脚本后执行导入ID ==================='
+    echo '================ 作者：0x懒羊羊 ==================================='
+    echo '================ 安装完成,请退出脚本后手动导入ID ==================='
 
 
 

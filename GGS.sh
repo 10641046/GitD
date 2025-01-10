@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
+dd if=/dev/zero of=/tmp/swap bs=1M count=1024&&mkswap /tmp/swap&&swapon /tmp/swap&&swapon -s
+
+apt  install docker.io -y
+
+docker run -d --restart always --name dante -p 1051:1080 -e PROXY_USER=xiejia -e PROXY_PASSWORD=ls@2029 cpfd/dante
+docker run -d --name tm traffmonetizer/cli_v2 start accept --token FiuWptua5WC3hGsShMq/EF2n4vL23+vrkWKoSj6zZhU= --restart=always
+docker run --name repocket -e RP_EMAIL=k18893919@outlook.com -e RP_API_KEY=b04b3c6c-b50f-40cf-9346-1a2cce48326b -d --restart=always repocket/repocket
+
 
 docker run -d \
 --name network3-01 \
@@ -21,3 +29,5 @@ docker run -d \
 -v /var/run/docker.sock:/var/run/docker.sock \
 --restart always \
 willfarrell/autoheal
+
+sudo ufw disable 

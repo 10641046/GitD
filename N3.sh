@@ -2,7 +2,7 @@
 
 docker run -d \
 --name network3-01 \
--e EMAIL=mabethboumba@hotmail.com \
+-e EMAIL=188939190@qq.com \
 -p 8080:8080/tcp \
 -v /root/wireguard:/usr/local/etc/wireguard \
 --health-cmd="curl -fs http://localhost:8080/ || exit 1" \
